@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Counsal.ai — Private AI for Manufacturing Engineering & Operations</title>
+<meta name="description" content="Counsal.ai delivers private, on-premises AI advisory for manufacturing engineering and operations. Your data never leaves your network.">
+<link rel="canonical" href="https://counsal.ai">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%232C3E5A'/><polygon points='16,2 27,8.5 27,21.5 16,28 5,21.5 5,8.5' fill='none' stroke='%23C6D8EA' stroke-width='1.5'/><circle cx='16' cy='14' r='3' fill='%231D9E75'/><circle cx='9' cy='19' r='2' fill='%232C3E5A'/><circle cx='22' cy='11' r='2' fill='%23C6D8EA'/><circle cx='21' cy='20' r='2' fill='%23C6D8EA'/><line x1='9' y1='19' x2='16' y2='14' stroke='%234C6C8C' stroke-width='1'/><line x1='16' y1='14' x2='22' y2='11' stroke='%234C6C8C' stroke-width='1'/><line x1='16' y1='14' x2='21' y2='20' stroke='%231D9E75' stroke-width='1'/></svg>">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Source+Sans+3:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #2c3e5a;
+    --primary: #4C6C8C;
+    --light-blue: #C6D8EA;
+    --pale: #eaf2f8;
+    --white: #ffffff;
+    --text: #1e2d3d;
+    --muted: #5a7080;
+    --rule: #b8cfe0;
+    --accent: #3a5a78;
+    --teal: #1D9E75;
+    --teal-dark: #0F6E56;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Source Sans 3', sans-serif; color: var(--text); background: var(--white); font-weight: 400; line-height: 1.7; }
+
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: var(--navy);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 48px; height: 68px;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.18);
+  }
+  .nav-logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+  .nav-logo-svg { width: 36px; height: 36px; flex-shrink: 0; }
+  .nav-brand { font-family: 'Playfair Display', serif; font-size: 1.15rem; color: var(--white); letter-spacing: 0.01em; line-height: 1.1; }
+  .nav-brand-sub { color: var(--light-blue); display: block; font-size: 0.62rem; letter-spacing: 0.22em; font-family: 'Source Sans 3', sans-serif; font-weight: 600; text-transform: uppercase; margin-top: 1px; }
+  .nav-cta { background: var(--teal); color: var(--white); text-decoration: none; padding: 9px 22px; border-radius: 3px; font-size: 0.88rem; font-weight: 600; letter-spacing: 0.05em; transition: background 0.2s; }
+  .nav-cta:hover { background: var(--teal-dark); }
+
+  #hero {
+    margin-top: 68px;
+    background: linear-gradient(160deg, var(--navy) 0%, var(--primary) 100%);
+    min-height: 92vh;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    padding: 80px 48px 60px;
+    position: relative; overflow: hidden; text-align: center;
+  }
+  #hero::before {
+    content: ''; position: absolute; inset: 0;
+    background: repeating-linear-gradient(-45deg, transparent, transparent 40px, rgba(255,255,255,0.015) 40px, rgba(255,255,255,0.015) 41px);
+    pointer-events: none;
+  }
+  .hero-inner { position: relative; z-index: 2; max-width: 780px; }
+  .hero-eyebrow { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: var(--light-blue); margin-bottom: 20px; }
+  .hero-inner h1 { font-family: 'Playfair Display', serif; font-size: clamp(2.2rem, 4vw, 3.4rem); color: var(--white); line-height: 1.2; margin-bottom: 24px; }
+  .hero-inner h1 em { font-style: normal; color: var(--light-blue); }
+  .hero-inner p { color: rgba(255,255,255,0.82); font-size: 1.1rem; max-width: 580px; margin: 0 auto 16px; font-weight: 300; line-height: 1.8; }
+  .hero-privacy { font-size: 0.82rem; color: rgba(255,255,255,0.55); margin-bottom: 40px; font-weight: 300; }
+  .hero-privacy strong { color: var(--light-blue); font-weight: 600; }
+
+  .form-wrap { display: flex; flex-direction: column; align-items: center; gap: 12px; width: 100%; max-width: 460px; margin: 0 auto; }
+  .form-label { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(255,255,255,0.5); }
+  .form-row { display: flex; width: 100%; border-radius: 3px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.2); }
+  .form-row input { flex: 1; background: rgba(255,255,255,0.96); border: none; outline: none; padding: 0.9rem 1.1rem; font-family: 'Source Sans 3', sans-serif; font-size: 0.95rem; color: var(--text); min-width: 0; }
+  .form-row input::placeholder { color: #9aabb8; }
+  .form-row button { background: var(--teal); border: none; padding: 0.9rem 1.4rem; font-family: 'Source Sans 3', sans-serif; font-weight: 600; font-size: 0.88rem; letter-spacing: 0.05em; color: #fff; cursor: pointer; transition: background 0.2s; white-space: nowrap; }
+  .form-row button:hover { background: var(--teal-dark); }
+  .form-note { font-size: 0.72rem; color: rgba(255,255,255,0.35); letter-spacing: 0.04em; }
+  .success-msg { display: none; font-size: 0.9rem; color: var(--light-blue); padding: 0.9rem 1.5rem; border: 1px solid rgba(198,216,234,0.3); border-radius: 3px; width: 100%; text-align: center; }
+
+  .hero-ctas { display: flex; gap: 16px; justify-content: center; margin-top: 32px; flex-wrap: wrap; }
+  .btn-primary { display: inline-block; background: var(--white); color: var(--navy); text-decoration: none; padding: 14px 32px; font-weight: 600; font-size: 0.92rem; letter-spacing: 0.05em; border-radius: 3px; transition: all 0.2s; }
+  .btn-primary:hover { background: var(--light-blue); }
+  .btn-ghost { display: inline-block; border: 1.5px solid rgba(255,255,255,0.4); color: var(--white); text-decoration: none; padding: 13px 28px; font-weight: 400; font-size: 0.9rem; border-radius: 3px; transition: all 0.2s; }
+  .btn-ghost:hover { border-color: var(--white); background: rgba(255,255,255,0.08); }
+
+  #products { background: var(--pale); border-top: 3px solid var(--light-blue); padding: 80px 80px; }
+  .products-header { text-align: center; margin-bottom: 56px; }
+  .section-eyebrow { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: var(--primary); margin-bottom: 12px; }
+  .section-title { font-family: 'Playfair Display', serif; font-size: clamp(1.7rem, 2.4vw, 2.2rem); color: var(--navy); margin-bottom: 16px; line-height: 1.25; }
+  .section-rule { width: 48px; height: 3px; background: var(--primary); margin: 0 auto 24px; }
+  .section-intro { font-size: 1.05rem; color: var(--muted); max-width: 580px; font-weight: 300; line-height: 1.8; margin: 0 auto; }
+
+  .products-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 28px; max-width: 900px; margin: 0 auto; }
+  .product-card { background: var(--white); border-radius: 0 0 4px 4px; border: 1px solid var(--rule); border-top: 3px solid var(--primary); padding: 36px 32px; transition: box-shadow 0.2s, transform 0.2s; }
+  .product-card:hover { box-shadow: 0 8px 32px rgba(76,108,140,0.13); transform: translateY(-3px); }
+  .product-card-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 20px; gap: 16px; }
+  .product-badge { font-size: 0.68rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; padding: 4px 10px; border-radius: 2px; white-space: nowrap; }
+  .badge-available { background: rgba(29,158,117,0.12); color: var(--teal); border: 1px solid rgba(29,158,117,0.25); }
+  .badge-roadmap { background: rgba(76,108,140,0.1); color: var(--primary); border: 1px solid rgba(76,108,140,0.2); }
+  .product-card h3 { font-family: 'Playfair Display', serif; font-size: 1.15rem; color: var(--navy); margin-bottom: 10px; }
+  .product-card p { font-size: 0.92rem; color: var(--muted); line-height: 1.7; }
+
+  #how { background: var(--white); padding: 80px 80px; }
+  .how-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; max-width: 960px; margin: 48px auto 0; }
+  .how-step { text-align: center; }
+  .how-number { font-family: 'Playfair Display', serif; font-size: 2.4rem; color: var(--light-blue); font-weight: 700; line-height: 1; margin-bottom: 16px; }
+  .how-step h3 { font-family: 'Playfair Display', serif; font-size: 1.05rem; color: var(--navy); margin-bottom: 10px; }
+  .how-step p { font-size: 0.92rem; color: var(--muted); line-height: 1.7; }
+
+  #pricing { background: var(--pale); border-top: 1px solid var(--rule); padding: 80px 80px; }
+  .pricing-single { max-width: 420px; margin: 48px auto 0; }
+  .pricing-card { background: var(--white); border: 1px solid var(--rule); border-top: 3px solid var(--teal); border-radius: 0 0 4px 4px; padding: 36px 32px; }
+  .pricing-tier { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--teal); margin-bottom: 8px; }
+  .pricing-price { font-family: 'Playfair Display', serif; font-size: 2.4rem; color: var(--navy); font-weight: 700; line-height: 1; margin-bottom: 4px; }
+  .pricing-price span { font-size: 1rem; font-weight: 400; color: var(--muted); font-family: 'Source Sans 3', sans-serif; }
+  .pricing-pilot { font-size: 0.78rem; color: var(--teal); font-weight: 600; margin-bottom: 20px; }
+  .pricing-rule { width: 32px; height: 2px; background: var(--rule); margin-bottom: 20px; }
+  .pricing-features { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+  .pricing-features li { font-size: 0.88rem; color: var(--muted); padding-left: 18px; position: relative; }
+  .pricing-features li::before { content: '✓'; position: absolute; left: 0; color: var(--teal); font-weight: 600; }
+  .pricing-note { text-align: center; margin-top: 28px; font-size: 0.82rem; color: var(--muted); }
+  .pricing-note strong { color: var(--navy); }
+
+  #contact { background: var(--white); padding: 80px 80px; text-align: center; }
+  .contact-grid { display: flex; justify-content: center; gap: 60px; margin: 32px 0 40px; flex-wrap: wrap; }
+  .contact-item-label { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
+  .contact-item a { color: var(--primary); text-decoration: none; font-size: 1rem; font-weight: 600; transition: color 0.2s; }
+  .contact-item a:hover { color: var(--navy); }
+  .contact-item p { color: var(--text); font-size: 1rem; }
+  .contact-cta { display: inline-block; background: var(--navy); color: var(--white); text-decoration: none; padding: 15px 36px; font-weight: 600; font-size: 0.95rem; letter-spacing: 0.05em; border-radius: 3px; transition: background 0.2s; }
+  .contact-cta:hover { background: var(--accent); }
+
+  footer { background: var(--navy); color: rgba(255,255,255,0.45); text-align: center; padding: 32px 48px; font-size: 0.75rem; letter-spacing: 0.06em; }
+  .footer-logo { display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 12px; }
+  .footer-brand { font-family: 'Playfair Display', serif; font-size: 1rem; color: rgba(255,255,255,0.7); }
+
+  @media (max-width: 768px) {
+    nav { padding: 0 24px; }
+    #hero { padding: 60px 24px 40px; }
+    #products, #how, #pricing, #contact { padding: 60px 24px; }
+    .products-grid, .how-grid { grid-template-columns: 1fr; }
+    .contact-grid { gap: 32px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#">
+    <svg class="nav-logo-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+      <polygon points="50,6 88,28 88,72 50,94 12,72 12,28" fill="none" stroke="rgba(198,216,234,0.5)" stroke-width="3"/>
+      <line x1="26" y1="66" x2="50" y2="42" stroke="#4C6C8C" stroke-width="3"/>
+      <line x1="50" y1="42" x2="74" y2="34" stroke="#4C6C8C" stroke-width="3"/>
+      <line x1="50" y1="42" x2="62" y2="66" stroke="#1D9E75" stroke-width="3"/>
+      <circle cx="26" cy="66" r="7" fill="#2C3E5A"/>
+      <circle cx="74" cy="34" r="7" fill="#C6D8EA" stroke="#4C6C8C" stroke-width="2"/>
+      <circle cx="62" cy="66" r="7" fill="#C6D8EA" stroke="#4C6C8C" stroke-width="2"/>
+      <circle cx="50" cy="42" r="8.5" fill="#1D9E75"/>
+    </svg>
+    <div class="nav-brand">Counsal<span style="color:#1D9E75;">.ai</span><span class="nav-brand-sub">Private AI &middot; Manufacturing</span></div>
+  </a>
+  <a class="nav-cta" href="https://calendly.com/clc-technologies/30min-discovery-call" target="_blank">Book a Discovery Call</a>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-inner">
+    <p class="hero-eyebrow">Now accepting pilot customers</p>
+    <h1>Private AI for <em>Manufacturing Engineering</em> and Operations</h1>
+    <p>Counsal.ai delivers institutional knowledge queryable from any browser. Your data never leaves your network.</p>
+    <p class="hero-privacy"><strong>Your compute. Your data. Your network.</strong> Unlimited queries, flat price, no token burn.</p>
+
+    <div class="form-wrap">
+      <span class="form-label">Request early access</span>
+      <div class="form-row" id="formRow">
+        <form action="YOUR_MAILCHIMP_URL_HERE" method="post" target="_blank" style="display:flex;width:100%;" onsubmit="handleSubmit(event)">
+          <input type="email" name="EMAIL" id="emailInput" placeholder="your@company.com" autocomplete="email" required/>
+          <button type="submit">Request Access</button>
+        </form>
+      </div>
+      <div class="success-msg" id="successMsg">You're on the list. We'll be in touch shortly.</div>
+      <span class="form-note">No spam. No cloud. No nonsense.</span>
+    </div>
+
+    <div class="hero-ctas">
+      <a class="btn-primary" href="https://calendly.com/clc-technologies/30min-discovery-call" target="_blank">Book a 30-Min Discovery Call</a>
+      <a class="btn-ghost" href="#products">See Our Products</a>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCTS -->
+<section id="products">
+  <div class="products-header">
+    <p class="section-eyebrow">Product Roadmap</p>
+    <h2 class="section-title">Built for Engineering &amp; Operations</h2>
+    <div class="section-rule"></div>
+    <p class="section-intro">Purpose-built AI advisors for the workflows that define manufacturing quality, cost, and resilience — running privately on your own infrastructure.</p>
+  </div>
+  <div class="products-grid">
+
+    <div class="product-card">
+      <div class="product-card-header">
+        <svg width="52" height="52" viewBox="0 0 140 140" xmlns="http://www.w3.org/2000/svg">
+          <polygon points="70,4 128,37 128,103 70,136 12,103 12,37" fill="none" stroke="#2C3E5A" stroke-width="4"/>
+          <rect x="34" y="42" width="72" height="50" rx="4" fill="#2C3E5A"/>
+          <rect x="40" y="48" width="60" height="38" rx="2" fill="#4C6C8C"/>
+          <polygon points="52,60 68,60 82,74 82,80 52,80" fill="#1D9E75"/>
+          <rect x="62" y="92" width="16" height="10" fill="#2C3E5A"/>
+          <rect x="50" y="102" width="40" height="6" rx="3" fill="#2C3E5A"/>
+        </svg>
+        <span class="product-badge badge-available">Available Now</span>
+      </div>
+      <h3>DFM Advisor</h3>
+      <p>Institutional DFM knowledge queryable from any browser. Answers grounded in your engineering history, not generic training data.</p>
+    </div>
+
+    <div class="product-card">
+      <div class="product-card-header">
+        <svg width="52" height="52" viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg">
+          <polygon points="145,117.5 80,155 15,117.5 15,42.5 80,5 145,42.5" fill="none" stroke="#4C6C8C" stroke-width="4"/>
+          <rect x="37" y="88" width="22" height="34" fill="#2C3E5A"/>
+          <rect x="69" y="65" width="22" height="57" fill="#4C6C8C"/>
+          <rect x="101" y="42" width="22" height="80" fill="#1D9E75"/>
+        </svg>
+        <span class="product-badge badge-roadmap">Q4 2026</span>
+      </div>
+      <h3>Safety Stock Advisor</h3>
+      <p>Private AI for supply chain and inventory management workflows. Optimize decisions without exposing sensitive operational data to any cloud.</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section id="how">
+  <div style="text-align:center;">
+    <p class="section-eyebrow">How It Works</p>
+    <h2 class="section-title">Your knowledge. Your infrastructure.</h2>
+    <div class="section-rule" style="margin:0 auto 24px;"></div>
+    <p class="section-intro" style="margin:0 auto;">No cloud dependency. No per-query fees. No third-party access to your proprietary knowledge — ever.</p>
+  </div>
+  <div class="how-grid">
+    <div class="how-step">
+      <div class="how-number">01</div>
+      <h3>We deploy on your infrastructure</h3>
+      <p>Remote-hosted on our dedicated node or on-premises at your facility. Your documents never leave your network.</p>
+    </div>
+    <div class="how-step">
+      <div class="how-number">02</div>
+      <h3>We connect to your documents</h3>
+      <p>Read-only access to a shared folder you designate. Your proprietary engineering and operations documents are indexed privately — never copied, never exposed.</p>
+    </div>
+    <div class="how-step">
+      <div class="how-number">03</div>
+      <h3>Engineers query from any browser</h3>
+      <p>Answers grounded in your institutional knowledge, with citations showing which documents they came from. Unlimited queries, flat price.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section id="pricing">
+  <div style="text-align:center;">
+    <p class="section-eyebrow">Pricing</p>
+    <h2 class="section-title">Simple, flat pricing</h2>
+    <div class="section-rule" style="margin:0 auto 24px;"></div>
+    <p class="section-intro" style="margin:0 auto;">No per-seat fees. No token burn. Unlimited engineer accounts.</p>
+  </div>
+  <div class="pricing-single">
+    <div class="pricing-card">
+      <p class="pricing-tier">Studio</p>
+      <div class="pricing-price">$199<span>/mo</span></div>
+      <p class="pricing-pilot">Pilot customers: $99/mo locked</p>
+      <div class="pricing-rule"></div>
+      <ul class="pricing-features">
+        <li>DFM Advisor — full access</li>
+        <li>Unlimited engineer accounts</li>
+        <li>Remote and on-premises deployment</li>
+        <li>Month-to-month, no contract</li>
+      </ul>
+    </div>
+  </div>
+  <p class="pricing-note">We are currently selecting <strong>pilot customers</strong> — the first 5 clients receive Studio at $99/mo, locked for as long as they remain on the Studio tier.</p>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <p class="section-eyebrow">Get In Touch</p>
+  <h2 class="section-title">Let's discuss your deployment</h2>
+  <div class="section-rule" style="margin:0 auto 24px;"></div>
+  <p style="color:var(--muted);max-width:520px;margin:0 auto;font-weight:300;">Start with a free 30-day trial. Remote hosted or on-premises — we handle the deployment.</p>
+  <div class="contact-grid">
+    <div class="contact-item">
+      <p class="contact-item-label">Email</p>
+      <a href="mailto:info@clc-technologies.com">info@clc-technologies.com</a>
+    </div>
+    <div class="contact-item">
+      <p class="contact-item-label">Location</p>
+      <p>New York, NY</p>
+    </div>
+  </div>
+  <a class="contact-cta" href="https://calendly.com/clc-technologies/30min-discovery-call" target="_blank">Book a Free 30-Min Discovery Call</a>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">
+    <svg width="28" height="28" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+      <polygon points="50,6 88,28 88,72 50,94 12,72 12,28" fill="none" stroke="rgba(198,216,234,0.4)" stroke-width="3"/>
+      <circle cx="26" cy="66" r="6" fill="rgba(44,62,90,0.8)"/>
+      <circle cx="74" cy="34" r="6" fill="rgba(198,216,234,0.6)"/>
+      <circle cx="62" cy="66" r="6" fill="rgba(198,216,234,0.6)"/>
+      <circle cx="50" cy="42" r="7.5" fill="#1D9E75"/>
+      <line x1="26" y1="66" x2="50" y2="42" stroke="rgba(76,108,140,0.6)" stroke-width="2.5"/>
+      <line x1="50" y1="42" x2="74" y2="34" stroke="rgba(76,108,140,0.6)" stroke-width="2.5"/>
+      <line x1="50" y1="42" x2="62" y2="66" stroke="rgba(29,158,117,0.7)" stroke-width="2.5"/>
+    </svg>
+    <span class="footer-brand">Counsal.ai</span>
+  </div>
+  <span>A product of CLC Technologies &nbsp;|&nbsp; New York, NY &nbsp;|&nbsp; &copy; 2026 &nbsp;|&nbsp; <a href="mailto:info@clc-technologies.com" style="color:rgba(255,255,255,0.4);text-decoration:none;">info@clc-technologies.com</a></span>
+</footer>
+
+<script>
+function handleSubmit(e) {
+  var email = document.getElementById('emailInput').value.trim();
+  var re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!re.test(email)) {
+    document.getElementById('emailInput').style.outline = '2px solid #E24B4A';
+    document.getElementById('emailInput').focus();
+    e.preventDefault();
+    return;
+  }
+  setTimeout(function() {
+    document.getElementById('formRow').style.display = 'none';
+    document.getElementById('successMsg').style.display = 'block';
+  }, 500);
+}
+</script>
+
+</body>
+</html>
